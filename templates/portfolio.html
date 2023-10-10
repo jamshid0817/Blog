@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} My works {% endblock title %}
+{% load static %}
+{% load bootstrap5 %}
+{% block content %}
+
+        <!--================Home Banner Area =================-->
+        <section class="banner_area">
+            <div class="banner_inner d-flex align-items-center">
+            	<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+				<div class="container">
+					<div class="banner_content text-center">
+						<h2>Portfolio</h2>
+						<div class="page_link">
+							<a href="index.html">Home</a>
+							<a href="portfolio.html">Portfolio</a>
+						</div>
+						
+					</div>
+				</div>
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        
+        <!--================Projects Area =================-->
+        <section class="projects_area p_120">
+        	<div class="container">
+        		<div class="main_title">
+					<h2>Projects list that I worked on</h2>
+				</div>
+        		<div class="projects_fillter">
+					<ul class="filter list">
+						<li class="active" data-filter="*"><a href="#">All Categories</a></li>
+                        {% for cat in categories %}
+						<li data-filter=".{{ cat.name }}"><a href="#">{{ cat.name }}</a></li>
+                        {% endfor %}
+					</ul>
+				</div>
+				<div class="projects_inner row">
+                    {% for project in portfolios %}
+					<div class="col-lg-4 col-sm-6 {% for cat in project.category.all %} {{ cat }} {% endfor %}">
+						<div class="projects_item">
+							<img class="img-fluid" src="{{ project.image.url }}" alt="">
+							<div class="projects_text">
+								<a href="{{ project.get_absolute_url }}"><h4>{{ project.title }}</h4></a>
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+				</div>
+        	</div>
+        </section>
+        <!--================End Projects Area =================-->
+        
+
+{% endblock %}
